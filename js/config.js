@@ -1,7 +1,7 @@
 // © 2026 Lai Long Charts. Bảo lưu mọi quyền.
 // Product catalogue. `cot` = file in data/cot/*, `price` = file in data/prices,
 // `cotPrice` = price series drawn on the COT chart (same direction as the futures contract),
-// `binance` = live stream symbol (crypto only).
+// `live` = shown live in the ticker tape (exchange markets are in exchanges.js).
 export const GROUPS = ['metals', 'grains', 'softs', 'energy', 'fx', 'crypto'];
 
 export const SYMBOLS = [
@@ -31,8 +31,8 @@ export const SYMBOLS = [
   { id: 'AUD', code: 'AUDUSD', en: 'Australian Dollar', vi: 'Đô la Úc', group: 'fx', cot: 'AUD', price: 'AUDUSD', cotPrice: 'AUD_FUT' },
   { id: 'CHF', code: 'USDCHF', en: 'Swiss Franc', vi: 'Franc Thụy Sĩ', group: 'fx', cot: 'CHF', price: 'USDCHF', cotPrice: 'CHF_FUT' },
   { id: 'CNY', code: 'USDCNY', en: 'Chinese Yuan', vi: 'Nhân dân tệ', group: 'fx', cot: null, price: 'USDCNY' },
-  { id: 'BTC', code: 'BTCUSD', en: 'Bitcoin', vi: 'Bitcoin', group: 'crypto', cot: 'BTC', price: 'BTC', binance: 'BTCUSDT' },
-  { id: 'ETH', code: 'ETHUSD', en: 'Ether', vi: 'Ether', group: 'crypto', cot: 'ETH', price: 'ETH', binance: 'ETHUSDT' },
+  { id: 'BTC', code: 'BTCUSD', en: 'Bitcoin', vi: 'Bitcoin', group: 'crypto', cot: 'BTC', price: 'BTC', live: true },
+  { id: 'ETH', code: 'ETHUSD', en: 'Ether', vi: 'Ether', group: 'crypto', cot: 'ETH', price: 'ETH', live: true },
 ];
 
 export const BY_ID = Object.fromEntries(SYMBOLS.map(s => [s.id, s]));

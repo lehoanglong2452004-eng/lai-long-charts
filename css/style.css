@@ -220,6 +220,9 @@ table.tbl { border-collapse: collapse; width: 100%; font-size: 11.5px; }
 }
 .table-scroll { overflow-x: auto; }
 
+/* ---------- data source picker ---------- */
+.cell-head select.src-sel { color: var(--text); font-weight: 500; font-size: 11px; }
+
 /* ---------- maximize / fullscreen ---------- */
 .cgrid.maxed { grid-template-columns: 1fr !important; grid-template-rows: 1fr !important; }
 .cgrid.maxed .cell:not(.max) { display: none; }

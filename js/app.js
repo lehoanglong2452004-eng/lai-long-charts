@@ -2,6 +2,7 @@
 import { SYMBOLS } from './config.js';
 import { t, lang } from './i18n.js';
 import { store, el, loadJSON, fmtPrice, fmtPct, signClass, colors } from './util.js';
+import { liveFeed } from './exchanges.js';
 import * as cot from './cot.js';
 import * as seasonal from './seasonal.js';
 import * as charts from './charts.js';
@@ -42,7 +43,8 @@ function rerender() {
 }
 
 // ---------- ticker tape ----------
-let tapeWS = null;
+// Crypto entries update live (change vs today's UTC open) through the same exchange failover as the charts.
+const tapeFeeds = {};
 async function buildTape() {
   const track = document.getElementById('tapeTrack');
   let idx;
@@ -56,33 +58,23 @@ async function buildTape() {
     const px = el('span', {}, fmtPrice(p.close));
     const pc = el('span', { class: signClass(chg) }, ' ' + fmtPct(chg));
     items.push(el('span', { class: 'tape-item', 'data-sym': s.id }, el('b', {}, s.code), px, pc));
-    if (s.binance) liveTape[s.binance] = [];
   }
   // duplicate content so the loop has no gap
   track.append(...items, ...items.map(n => n.cloneNode(true)));
-  for (const k in liveTape) {
-    const nodes = track.querySelectorAll(`[data-sym="${k.replace('USDT', '')}"]`);
-    liveTape[k] = [...nodes].map(n => ({ px: n.children[1], pc: n.children[2] }));
-  }
-  connectTapeWS();
-}
-const liveTape = {};
-function connectTapeWS() {
-  if (tapeWS) return;
-  const streams = Object.keys(liveTape).map(s => s.toLowerCase() + '@miniTicker').join('/');
-  try {
-    tapeWS = new WebSocket(`wss://stream.binance.com:9443/stream?streams=${streams}`);
-    tapeWS.onmessage = e => {
-      const d = JSON.parse(e.data).data;
-      const chg = (d.c / d.o - 1) * 100;
-      for (const n of liveTape[d.s] || []) {
-        n.px.textContent = fmtPrice(+d.c);
-        n.pc.textContent = ' ' + fmtPct(chg);
-        n.pc.className = signClass(chg);
-      }
+  for (const s of SYMBOLS.filter(x => x.live)) {
+    if (tapeFeeds[s.id]) continue;
+    const show = b => {
+      const chg = (b.close / b.open - 1) * 100;
+      track.querySelectorAll(`[data-sym="${s.id}"]`).forEach(n => {
+        n.children[1].textContent = fmtPrice(b.close);
+        n.children[2].textContent = ' ' + fmtPct(chg);
+        n.children[2].className = signClass(chg);
+      });
     };
-    tapeWS.onclose = () => { tapeWS = null; setTimeout(connectTapeWS, 5000); };
-  } catch { tapeWS = null; }
+    tapeFeeds[s.id] = liveFeed(s.id, '1D', 'auto', {
+      onBars: bars => show(bars[bars.length - 1]), onBar: show, onError: () => {},
+    });
+  }
 }
 
 // ---------- clock + status ----------

@@ -9,7 +9,7 @@ COT (Commitments of Traders), Seasonal and multi-chart dashboard for commodities
 | COT Legacy / Disaggregated / TFF | CFTC annual files | Fri 21:00 UTC (+ Sat 03:00 backup) | `data/cot/{legacy,disagg,tff}/*.json` |
 | Daily OHLCV | Yahoo Finance | Daily 22:30 UTC | `data/prices/*.json` |
 | Intraday 5m / 1h (futures, FX) | Yahoo Finance | Every ~15 min with each deploy | `data/intraday/*.json` (published, not committed) |
-| Crypto realtime | Binance WebSocket | Live in browser | — |
+| Realtime (BTC, ETH, gold, silver, platinum, palladium, copper, WTI, Brent, natgas) | Binance · OKX · Bybit · Hyperliquid (auto failover, `js/exchanges.js`) | Live in browser | — |
 
 ## Site
 

@@ -1,14 +1,14 @@
 // © 2026 Lai Long Charts. Bảo lưu mọi quyền.
 // Multi-chart tab: candles/line, volume, volume profile, bar countdown.
-// Crypto streams live from Binance; futures/FX use Yahoo intraday published with each deploy (~15 min delay).
+// Crypto and metal/energy perps stream live from Binance/OKX/Bybit/Hyperliquid (auto failover);
+// futures/FX use Yahoo intraday published with each deploy (~15 min delay).
 import { SYMBOLS, BY_ID, GROUPS } from './config.js';
 import { t, name } from './i18n.js';
 import { el, loadJSON, makeChart, LW, store, fmtPrice, fmtPct, fmtInt, signClass, dayTime, decimals, colors, css } from './util.js';
 import { seg, fullscreenBtn } from './ui.js';
+import { liveFeed, exchangesFor, marketName, EXCHANGE_LABEL } from './exchanges.js';
 
 const TF = { '1m': 60, '5m': 300, '15m': 900, '30m': 1800, '1H': 3600, '4H': 14400, '1D': 86400, '1W': 604800 };
-const BINANCE_TF = { '1m': '1m', '5m': '5m', '15m': '15m', '30m': '30m', '1H': '1h', '4H': '4h', '1D': '1d', '1W': '1w' };
-const BINANCE_REST = ['https://api.binance.com', 'https://data-api.binance.vision'];
 const LAYOUTS = { 1: [1, 1], 2: [2, 1], 4: [2, 2], 6: [3, 2], 9: [3, 3] };
 const DEFAULT_CELLS = [
   { sym: 'GOLD', tf: '1H' }, { sym: 'BTC', tf: '15m' }, { sym: 'WTI', tf: '1H' }, { sym: 'EUR', tf: '1H' },
@@ -20,7 +20,7 @@ const nyDate = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/New_York' }
 
 export function mount(root) {
   let layout = store.get('charts.layout', 4);
-  const cfg = store.get('charts.cells', DEFAULT_CELLS).map((c, i) => ({ type: 'candle', vp: false, ...DEFAULT_CELLS[i], ...c }));
+  const cfg = store.get('charts.cells', DEFAULT_CELLS).map((c, i) => ({ type: 'candle', vp: false, src: 'auto', ...DEFAULT_CELLS[i], ...c }));
   const saveCells = () => store.set('charts.cells', cfg);
   let cells = [];
 
@@ -32,7 +32,7 @@ export function mount(root) {
         layout = v; store.set('charts.layout', v); build();
       })),
     el('span', { class: 'note', style: 'padding:0' },
-      el('span', { class: 'badge live' }, t('live')), ' Binance · ',
+      el('span', { class: 'badge live' }, t('live')), ' Binance · OKX · Bybit · Hyperliquid · ',
       el('span', { class: 'badge delayed' }, t('delayed')), ' Yahoo ~15m · ',
       el('span', { class: 'badge eod' }, t('eod'))));
   const section = el('section', { class: 'content' }, bar, grid);
@@ -80,22 +80,39 @@ function createCell(conf, onChange, onMax) {
   chartEl.append(ohlc, note, cd, vpCanvas);
   node.append(head, chartEl);
 
-  let chart = null, price = null, vol = null, bars = [], ws = null, poll = null, timer = null, token = 0, alive = true;
-  let source = 'eod', vpOn = conf.vp;
+  let chart = null, price = null, vol = null, bars = [], feed = null, poll = null, timer = null, token = 0, alive = true;
+  let source = 'eod', exchange = null, vpOn = conf.vp;
 
   // ---------- header ----------
   const symSel = el('select', {
-    onchange: e => { conf.sym = e.target.value; if (!isCrypto() && conf.tf === '1m') conf.tf = '5m'; onChange(); load(); renderHead(); },
+    onchange: e => { conf.sym = e.target.value; fixConf(); onChange(); load(); renderHead(); },
   }, ...GROUPS.map(g => el('optgroup', { label: t(g) },
     ...SYMBOLS.filter(s => s.group === g).map(s => el('option', { value: s.id, selected: s.id === conf.sym }, `${s.code} ${name(s)}`)))));
   const badge = el('span', { class: 'badge eod' });
   const pxEl = el('span', { class: 'cell-px' });
   const chgEl = el('span', {});
-  const isCrypto = () => !!BY_ID[conf.sym]?.binance;
+  // data source: 'auto' (live exchanges with failover, Yahoo as last resort), one exchange, or 'yahoo'
+  const liveEx = () => exchangesFor(conf.sym);
+  const hasYahoo = () => BY_ID[conf.sym].group !== 'crypto';
+  const useLive = () => liveEx().length > 0 && conf.src !== 'yahoo';
+  function fixConf() {
+    const ok = ['auto', ...liveEx(), ...(hasYahoo() ? ['yahoo'] : [])];
+    if (!ok.includes(conf.src)) conf.src = 'auto';
+    if (!useLive() && conf.tf === '1m') conf.tf = '5m';
+  }
+  fixConf();
+  function srcSelect() {
+    if (!liveEx().length) return null;
+    const opts = [['auto', 'AUTO'], ...liveEx().map(ex => [ex, EXCHANGE_LABEL[ex]]), ...(hasYahoo() ? [['yahoo', 'YAHOO FUT']] : [])];
+    return el('select', {
+      class: 'src-sel', title: t('datasrc'),
+      onchange: e => { conf.src = e.target.value; fixConf(); onChange(); load(); renderHead(); },
+    }, ...opts.map(([v, l]) => el('option', { value: v, selected: v === conf.src }, l)));
+  }
 
   function renderHead() {
-    head.replaceChildren(symSel,
-      seg(Object.keys(TF).map(k => ({ v: k, label: k, disabled: k === '1m' && !isCrypto() })), conf.tf,
+    head.replaceChildren(symSel, srcSelect() || '',
+      seg(Object.keys(TF).map(k => ({ v: k, label: k, disabled: k === '1m' && !useLive() })), conf.tf,
         v => { conf.tf = v; onChange(); load(); }),
       seg([{ v: 'candle', label: '▮▯', title: t('candles') }, { v: 'line', label: '∿', title: t('line') }], conf.type,
         v => { conf.type = v; onChange(); draw(); }),
@@ -117,16 +134,51 @@ function createCell(conf, onChange, onMax) {
     const my = ++token;
     stopFeeds();
     note.textContent = t('loading');
-    const sym = BY_ID[conf.sym];
+    if (useLive()) startLive(my);
+    else loadDelayed(my);
+  }
+
+  function startLive(my) {
+    const tf = conf.tf;
+    feed = liveFeed(conf.sym, tf, conf.src, {
+      onBars: (b, ex) => {
+        if (my !== token || !alive) return;
+        const fresh = b.map(x => ({ ...x, time: shiftT(x.time, tf) }));
+        // reconnect to the same exchange: only merge new bars, keep the user's zoom/scroll
+        if (ex === exchange && source === 'live' && bars.length && price) {
+          const lastT = bars[bars.length - 1].time;
+          fresh.filter(x => x.time >= lastT).forEach(pushBar);
+          updateHeader();
+          return;
+        }
+        bars = fresh;
+        source = 'live'; exchange = ex;
+        note.textContent = '';
+        draw();
+      },
+      onBar: b => {
+        if (my !== token || !alive) return;
+        pushBar({ ...b, time: shiftT(b.time, tf) });
+        updateHeader();
+      },
+      onError: msg => {
+        if (my !== token || !alive) return;
+        // every exchange failed: commodities fall back to Yahoo futures data
+        if (conf.src === 'auto' && hasYahoo()) { feed?.close(); feed = null; loadDelayed(my); }
+        else note.textContent = t('nodata') + ' · ' + msg;
+      },
+    });
+  }
+
+  async function loadDelayed(my) {
     try {
-      const res = sym.binance ? await loadBinance(sym, conf.tf) : await loadYahoo(sym, conf.tf);
+      const res = await loadYahoo(BY_ID[conf.sym], conf.tf);
       if (my !== token || !alive) return;
       bars = res.bars;
-      source = res.source;
+      source = res.source; exchange = null;
       note.textContent = '';
       draw();
-      if (source === 'live') startWS(sym, my);
-      else if (source === 'delayed') poll = setInterval(() => refreshDelayed(my), POLL_MS);
+      poll = setInterval(() => refreshDelayed(my), POLL_MS);
     } catch (e) {
       if (my !== token) return;
       note.textContent = t('nodata') + ' · ' + e.message;
@@ -144,20 +196,8 @@ function createCell(conf, onChange, onMax) {
     } catch { /* keep old data */ }
   }
 
-  function startWS(sym, my) {
-    const url = `wss://stream.binance.com:9443/ws/${sym.binance.toLowerCase()}@kline_${BINANCE_TF[conf.tf]}`;
-    ws = new WebSocket(url);
-    ws.onmessage = e => {
-      if (my !== token) return;
-      const k = JSON.parse(e.data).k;
-      pushBar({ time: shiftT(k.t / 1000, conf.tf), open: +k.o, high: +k.h, low: +k.l, close: +k.c, volume: +k.v });
-      updateHeader();
-    };
-    ws.onclose = () => { if (my === token && alive) setTimeout(() => my === token && startWS(sym, my), 3000); };
-  }
-
   function stopFeeds() {
-    if (ws) { ws.onclose = null; ws.close(); ws = null; }
+    if (feed) { feed.close(); feed = null; }
     if (poll) { clearInterval(poll); poll = null; }
   }
 
@@ -235,13 +275,16 @@ function createCell(conf, onChange, onMax) {
     if (source === 'delayed' && isIntra(conf.tf)) {
       const age = Math.max(0, Math.round((Date.now() / 1000 - unshiftT(last.time, conf.tf)) / 60) - Math.round(Math.min(TF[conf.tf], 3600) / 60));
       badge.textContent = `${t('delayed')}${age > 0 && age < 600 ? ' ' + age + 'm' : ''}`;
+    } else if (source === 'live') {
+      badge.textContent = `${t('live')} · ${EXCHANGE_LABEL[exchange]}`;
+      badge.title = marketName(conf.sym, exchange) + (BY_ID[conf.sym].group === 'crypto' ? '' : ' (perpetual)');
     } else badge.textContent = t(source);
   }
 
   // ---------- countdown (re-positioned under the last price label every second) ----------
   function tickCountdown() {
     if (!price || !bars.length) { cd.textContent = ''; return; }
-    const left = nextClose(conf.tf, isCrypto()) - Date.now() / 1000;
+    const left = nextClose(conf.tf, source === 'live') - Date.now() / 1000;
     const last = bars[bars.length - 1];
     const y = price.priceToCoordinate(last.close);
     if (y === null || left < 0) { cd.textContent = ''; return; }
@@ -320,24 +363,6 @@ function createCell(conf, onChange, onMax) {
 const isIntra = tf => TF[tf] < 86400;
 const shiftT = (ts, tf) => isIntra(tf) ? ts + TZ_SHIFT : ts;
 const unshiftT = (ts, tf) => isIntra(tf) ? ts - TZ_SHIFT : ts;
-
-async function loadBinance(sym, tf) {
-  let lastErr;
-  for (const base of BINANCE_REST) {
-    try {
-      const r = await fetch(`${base}/api/v3/klines?symbol=${sym.binance}&interval=${BINANCE_TF[tf]}&limit=1000`);
-      if (!r.ok) throw new Error('HTTP ' + r.status);
-      const rows = await r.json();
-      return {
-        source: 'live',
-        bars: rows.map(k => ({ time: shiftT(k[0] / 1000, tf), open: +k[1], high: +k[2], low: +k[3], close: +k[4], volume: +k[5] })),
-      };
-    } catch (e) { lastErr = e; }
-  }
-  // Binance unreachable: fall back to the published daily history
-  if (tf === '1D' || tf === '1W') return { source: 'eod', bars: await dailyBars(sym, tf) };
-  throw lastErr;
-}
 
 function fromCols(d, timeOf) {
   const out = [];
