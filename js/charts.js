@@ -4,7 +4,7 @@
 import { SYMBOLS, BY_ID, GROUPS } from './config.js';
 import { t, name } from './i18n.js';
 import { el, loadJSON, makeChart, LW, store, fmtPrice, fmtPct, fmtInt, signClass, dayTime, decimals, colors, css } from './util.js';
-import { seg } from './ui.js';
+import { seg, fullscreenBtn } from './ui.js';
 
 const TF = { '1m': 60, '5m': 300, '15m': 900, '30m': 1800, '1H': 3600, '4H': 14400, '1D': 86400, '1W': 604800 };
 const BINANCE_TF = { '1m': '1m', '5m': '5m', '15m': '15m', '30m': '30m', '1H': '1h', '4H': '4h', '1D': '1d', '1W': '1w' };
@@ -35,27 +35,41 @@ export function mount(root) {
       el('span', { class: 'badge live' }, t('live')), ' Binance · ',
       el('span', { class: 'badge delayed' }, t('delayed')), ' Yahoo ~15m · ',
       el('span', { class: 'badge eod' }, t('eod'))));
-  root.append(el('section', { class: 'content' }, bar, grid));
+  const section = el('section', { class: 'content' }, bar, grid);
+  bar.append(fullscreenBtn(() => section));
+  root.append(section);
+
+  // maximize one cell over the whole grid (button, double-click header, Esc to restore)
+  let maxed = null;
+  const setMax = node => {
+    maxed = node === maxed ? null : node;
+    grid.classList.toggle('maxed', !!maxed);
+    cells.forEach(c => c.node.classList.toggle('max', c.node === maxed));
+  };
+  const onKey = e => { if (e.key === 'Escape' && maxed && !document.fullscreenElement) setMax(maxed); };
+  document.addEventListener('keydown', onKey);
 
   function build() {
     cells.forEach(c => c.destroy());
+    maxed = null;
+    grid.classList.remove('maxed');
     grid.replaceChildren();
     const [cols, rows] = LAYOUTS[layout];
     grid.style.gridTemplateColumns = `repeat(${cols}, minmax(0, 1fr))`;
     grid.style.gridTemplateRows = `repeat(${rows}, minmax(0, 1fr))`;
     cells = [];
     for (let i = 0; i < layout; i++) {
-      const c = createCell(cfg[i], () => saveCells());
+      const c = createCell(cfg[i], () => saveCells(), setMax);
       grid.append(c.node);
       cells.push(c);
     }
   }
   build();
-  return () => cells.forEach(c => c.destroy());
+  return () => { document.removeEventListener('keydown', onKey); cells.forEach(c => c.destroy()); };
 }
 
 // ---------------------------------------------------------------- one chart cell
-function createCell(conf, onChange) {
+function createCell(conf, onChange, onMax) {
   const node = el('div', { class: 'cell' });
   const head = el('div', { class: 'cell-head' });
   const chartEl = el('div', { class: 'cell-chart' });
@@ -87,9 +101,16 @@ function createCell(conf, onChange) {
         v => { conf.type = v; onChange(); draw(); }),
       seg([{ v: true, label: 'VP', title: t('vp') }], vpOn ? true : null,
         () => { vpOn = !vpOn; conf.vp = vpOn; onChange(); renderHead(); drawVP(); }),
-      badge, pxEl, chgEl);
+      badge, pxEl, chgEl,
+      el('button', { class: 'tbtn max-btn', title: t('maximize'), onclick: () => onMax(node) },
+        node.classList.contains('max') ? '⤡' : '⤢'));
   }
   renderHead();
+  head.addEventListener('dblclick', e => { if (!e.target.closest('button, select')) onMax(node); });
+  new MutationObserver(() => {
+    const b = head.querySelector('.max-btn');
+    if (b) b.textContent = node.classList.contains('max') ? '⤡' : '⤢';
+  }).observe(node, { attributes: true, attributeFilter: ['class'] });
 
   // ---------- data ----------
   async function load() {

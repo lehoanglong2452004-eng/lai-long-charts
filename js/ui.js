@@ -57,3 +57,13 @@ export function symbolSidebar({ filter = () => true, active, onSelect, extraTop 
 }
 
 export const loadingBox = () => el('div', { class: 'loading' }, t('loading'));
+
+// Toggle browser fullscreen for the element returned by getTarget().
+export function fullscreenBtn(getTarget) {
+  const b = el('button', { class: 'tbtn fs-btn', title: t('fullscreen') }, '⛶ ' + t('fullscreen'));
+  b.onclick = () => {
+    if (document.fullscreenElement) document.exitFullscreen();
+    else getTarget().requestFullscreen?.().catch(() => {});
+  };
+  return b;
+}

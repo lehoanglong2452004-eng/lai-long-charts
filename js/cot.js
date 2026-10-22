@@ -3,7 +3,7 @@
 import { SYMBOLS, BY_ID, GROUPS, COT_GROUPS } from './config.js';
 import { t, name } from './i18n.js';
 import { el, loadJSON, makeChart, LW, store, fmtInt, fmtSigned, fmtPrice, signClass, dayTime, decimals, colors, css } from './util.js';
-import { seg, symbolSidebar, loadingBox } from './ui.js';
+import { seg, symbolSidebar, loadingBox, fullscreenBtn } from './ui.js';
 
 const OVERVIEW = '__ALL__';
 const RANGES = { '1Y': 1, '3Y': 3, '5Y': 5, '10Y': 10, MAX: 99 };
@@ -79,6 +79,7 @@ export function mount(root) {
         seg(groups.map(g => ({ v: g.k, label: g.short })), st.lsGroup, v => { st.lsGroup = v; render(); })));
     }
 
+    bar.append(fullscreenBtn(() => content));
     const legend = el('div', { class: 'legend' });
     const chartBox = el('div', { class: 'chart-box cot-chart' });
     const tableWrap = el('div', { class: 'cot-table-wrap table-scroll' });

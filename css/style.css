@@ -219,3 +219,16 @@ table.tbl { border-collapse: collapse; width: 100%; font-size: 11.5px; }
   .table-scroll { overflow-x: auto; }
 }
 .table-scroll { overflow-x: auto; }
+
+/* ---------- maximize / fullscreen ---------- */
+.cgrid.maxed { grid-template-columns: 1fr !important; grid-template-rows: 1fr !important; }
+.cgrid.maxed .cell:not(.max) { display: none; }
+.max-btn { padding: 0 6px; min-width: 0; font-size: 13px; line-height: 18px; }
+.cell.max .max-btn { color: var(--amber); border-color: var(--amber); }
+.fs-btn { margin-left: auto; }
+:fullscreen { background: var(--bg); overflow: auto; }
+.content:fullscreen .sea-chart { height: calc(100vh - 200px); min-height: 360px; }
+.content:fullscreen .cot-chart { min-height: calc(100vh - 140px); }
+@media (max-width: 860px) {
+  .cgrid.maxed { grid-auto-rows: calc(100vh - 140px); }
+}

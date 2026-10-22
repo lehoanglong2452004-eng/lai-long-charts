@@ -3,7 +3,7 @@
 import { SYMBOLS, BY_ID, GROUPS, SERIES_COLORS } from './config.js';
 import { t, name, months } from './i18n.js';
 import { el, loadJSON, makeChart, LW, store, fmtPrice, fmtPct, signClass, dayTime, isoDay, colors, css, corr, decimals } from './util.js';
-import { seg, symbolSidebar, loadingBox } from './ui.js';
+import { seg, symbolSidebar, loadingBox, fullscreenBtn } from './ui.js';
 
 const NOW_YEAR = new Date().getUTCFullYear();
 const BASE_YEAR = 2000; // leap year: every calendar day maps onto it
@@ -103,6 +103,7 @@ export function mount(root) {
         v => { st.mode = v; save(); render(); }));
     const body = el('div', { class: 'content' });
     const right = el('div', { class: 'content' }, modeBar, body);
+    modeBar.append(fullscreenBtn(() => right));
     if (st.mode === 'single') {
       const sb = symbolSidebar({ active: st.sym, onSelect: id => { st.sym = id; save(); render(); } });
       root.append(sb.side, right);

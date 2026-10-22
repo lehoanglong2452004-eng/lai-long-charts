@@ -24,6 +24,7 @@ const DICT = {
     updated: 'Data updated', source: 'Sources: CFTC, Yahoo Finance (delayed), Binance (live)',
     closesin: 'Bar closes in', last: 'LAST', chgd: 'CHG', select: 'Select', none: 'none',
     nocot: 'No COT report for this market', clear: 'CLEAR', all: 'ALL',
+    maximize: 'Maximize / restore (Esc)', fullscreen: 'FULLSCREEN',
   },
   vi: {
     cot: 'COT', seasonal: 'MÙA VỤ', charts: 'BIỂU ĐỒ',
@@ -47,6 +48,7 @@ const DICT = {
     updated: 'Cập nhật dữ liệu', source: 'Nguồn: CFTC, Yahoo Finance (trễ), Binance (realtime)',
     closesin: 'Nến đóng sau', last: 'GIÁ', chgd: 'THAY ĐỔI', select: 'Chọn', none: 'không',
     nocot: 'Thị trường này không có báo cáo COT', clear: 'BỎ CHỌN', all: 'TẤT CẢ',
+    maximize: 'Phóng to / thu nhỏ (Esc)', fullscreen: 'TOÀN MÀN HÌNH',
   },
 };
 
