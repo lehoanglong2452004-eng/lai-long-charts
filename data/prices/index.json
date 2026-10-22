@@ -3,168 +3,272 @@
   "ticker": "GC=F",
   "group": "metals",
   "first": "2000-08-30",
-  "last": "2026-10-21"
+  "last": "2026-10-22",
+  "close": 4107.299805,
+  "prev": 4150.0
  },
  "SILVER": {
   "ticker": "SI=F",
   "group": "metals",
   "first": "2000-08-30",
-  "last": "2026-10-21"
+  "last": "2026-10-22",
+  "close": 56.459999,
+  "prev": 57.422001
  },
  "PLATINUM": {
   "ticker": "PL=F",
   "group": "metals",
   "first": "2000-01-04",
-  "last": "2026-10-21"
+  "last": "2026-10-22",
+  "close": 1595.5,
+  "prev": 1625.5
  },
  "PALLADIUM": {
   "ticker": "PA=F",
   "group": "metals",
   "first": "2000-01-04",
-  "last": "2026-10-21"
+  "last": "2026-10-22",
+  "close": 1060.0,
+  "prev": 1084.699951
  },
  "COPPER": {
   "ticker": "HG=F",
   "group": "metals",
   "first": "2000-08-30",
-  "last": "2026-10-21"
+  "last": "2026-10-22",
+  "close": 6.4845,
+  "prev": 6.543
  },
  "ALUMINUM": {
   "ticker": "ALI=F",
   "group": "metals",
   "first": "2014-05-06",
-  "last": "2026-10-21"
+  "last": "2026-10-21",
+  "close": 3177.75,
+  "prev": 3148.5
  },
  "STEEL_HRC": {
   "ticker": "HRC=F",
   "group": "metals",
   "first": "2008-10-20",
-  "last": "2026-10-21"
+  "last": "2026-10-21",
+  "close": 1286.0,
+  "prev": 1285.0
  },
  "WHEAT": {
   "ticker": "ZW=F",
   "group": "grains",
   "first": "2000-07-17",
-  "last": "2026-10-21"
+  "last": "2026-10-22",
+  "close": 627.25,
+  "prev": 628.25
  },
  "CORN": {
   "ticker": "ZC=F",
   "group": "grains",
   "first": "2000-07-17",
-  "last": "2026-10-21"
+  "last": "2026-10-22",
+  "close": 464.0,
+  "prev": 463.25
  },
  "SOYBEANS": {
   "ticker": "ZS=F",
   "group": "grains",
   "first": "2000-09-15",
-  "last": "2026-10-21"
+  "last": "2026-10-22",
+  "close": 1243.0,
+  "prev": 1245.25
  },
  "SOY_OIL": {
   "ticker": "ZL=F",
   "group": "grains",
   "first": "2000-03-15",
-  "last": "2026-10-21"
+  "last": "2026-10-22",
+  "close": 65.82,
+  "prev": 65.970001
  },
  "SOY_MEAL": {
   "ticker": "ZM=F",
   "group": "grains",
   "first": "2000-05-15",
-  "last": "2026-10-21"
+  "last": "2026-10-22",
+  "close": 347.200012,
+  "prev": 348.299988
  },
  "COFFEE_ARABICA": {
   "ticker": "KC=F",
   "group": "softs",
   "first": "2000-01-03",
-  "last": "2026-10-21"
+  "last": "2026-10-21",
+  "close": 316.149994,
+  "prev": 311.299988
  },
  "WTI": {
   "ticker": "CL=F",
   "group": "energy",
   "first": "2000-08-23",
-  "last": "2026-10-21"
+  "last": "2026-10-22",
+  "close": 98.470001,
+  "prev": 97.150002
  },
  "BRENT": {
   "ticker": "BZ=F",
   "group": "energy",
   "first": "2007-07-30",
-  "last": "2026-10-21"
+  "last": "2026-10-22",
+  "close": 110.599998,
+  "prev": 108.82
  },
  "NATGAS": {
   "ticker": "NG=F",
   "group": "energy",
   "first": "2000-08-30",
-  "last": "2026-10-21"
+  "last": "2026-10-22",
+  "close": 2.763,
+  "prev": 2.79
  },
  "RBOB": {
   "ticker": "RB=F",
   "group": "energy",
   "first": "2000-11-01",
-  "last": "2026-10-21"
+  "last": "2026-10-22",
+  "close": 3.0767,
+  "prev": 3.1205
  },
  "HEATING_OIL": {
   "ticker": "HO=F",
   "group": "energy",
   "first": "2000-09-01",
-  "last": "2026-10-21"
+  "last": "2026-10-22",
+  "close": 4.6378,
+  "prev": 4.7633
  },
  "USDJPY": {
   "ticker": "JPY=X",
   "group": "fx",
   "first": "2000-01-03",
-  "last": "2026-10-22"
+  "last": "2026-10-21",
+  "close": 158.268005,
+  "prev": 158.522995
  },
  "USDCAD": {
   "ticker": "CAD=X",
   "group": "fx",
   "first": "2003-09-17",
-  "last": "2026-10-22"
+  "last": "2026-10-21",
+  "close": 1.40662,
+  "prev": 1.41053
  },
  "EURUSD": {
   "ticker": "EURUSD=X",
   "group": "fx",
   "first": "2003-12-01",
-  "last": "2026-10-22"
+  "last": "2026-10-22",
+  "close": 1.124606,
+  "prev": 1.122675
  },
  "GBPUSD": {
   "ticker": "GBPUSD=X",
   "group": "fx",
   "first": "2003-12-01",
-  "last": "2026-10-22"
+  "last": "2026-10-22",
+  "close": 1.339746,
+  "prev": 1.337327
  },
  "AUDUSD": {
   "ticker": "AUDUSD=X",
   "group": "fx",
   "first": "2006-05-16",
-  "last": "2026-10-22"
+  "last": "2026-10-22",
+  "close": 0.701656,
+  "prev": 0.700658
  },
  "USDCHF": {
   "ticker": "CHF=X",
   "group": "fx",
   "first": "2003-09-17",
-  "last": "2026-10-21"
+  "last": "2026-10-21",
+  "close": 0.82563,
+  "prev": 0.82685
  },
  "USDCNY": {
   "ticker": "CNY=X",
   "group": "fx",
   "first": "2001-06-25",
-  "last": "2026-10-22"
+  "last": "2026-10-22",
+  "close": 6.6738,
+  "prev": 6.6779
  },
  "DXY": {
   "ticker": "DX-Y.NYB",
   "group": "fx",
   "first": "2000-01-03",
-  "last": "2026-10-21"
+  "last": "2026-10-22",
+  "close": 101.581001,
+  "prev": 101.730003
+ },
+ "EUR_FUT": {
+  "ticker": "6E=F",
+  "group": "fx",
+  "first": "2000-09-12",
+  "last": "2026-10-22",
+  "close": 1.12675,
+  "prev": 1.12355
+ },
+ "JPY_FUT": {
+  "ticker": "6J=F",
+  "group": "fx",
+  "first": "2000-09-13",
+  "last": "2026-10-22",
+  "close": 0.006368,
+  "prev": 0.00633
+ },
+ "GBP_FUT": {
+  "ticker": "6B=F",
+  "group": "fx",
+  "first": "2000-10-05",
+  "last": "2026-10-22",
+  "close": 1.34,
+  "prev": 1.3385
+ },
+ "CAD_FUT": {
+  "ticker": "6C=F",
+  "group": "fx",
+  "first": "2000-05-23",
+  "last": "2026-10-22",
+  "close": 0.7142,
+  "prev": 0.7126
+ },
+ "AUD_FUT": {
+  "ticker": "6A=F",
+  "group": "fx",
+  "first": "2000-11-08",
+  "last": "2026-10-22",
+  "close": 0.70085,
+  "prev": 0.70205
+ },
+ "CHF_FUT": {
+  "ticker": "6S=F",
+  "group": "fx",
+  "first": "2000-11-10",
+  "last": "2026-10-22",
+  "close": 1.2226,
+  "prev": 1.21925
  },
  "BTC": {
   "ticker": "BTC-USD",
   "group": "crypto",
   "first": "2014-09-17",
-  "last": "2026-10-22"
+  "last": "2026-10-22",
+  "close": 82818.453125,
+  "prev": 82941.0
  },
  "ETH": {
   "ticker": "ETH-USD",
   "group": "crypto",
   "first": "2017-11-09",
-  "last": "2026-10-22"
+  "last": "2026-10-22",
+  "close": 2442.449951,
+  "prev": 2446.730713
  }
 }

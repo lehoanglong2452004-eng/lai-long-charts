@@ -25,6 +25,9 @@ TICKERS = {
     "USDJPY": ("JPY=X", "fx"), "USDCAD": ("CAD=X", "fx"), "EURUSD": ("EURUSD=X", "fx"),
     "GBPUSD": ("GBPUSD=X", "fx"), "AUDUSD": ("AUDUSD=X", "fx"), "USDCHF": ("CHF=X", "fx"),
     "USDCNY": ("CNY=X", "fx"), "DXY": ("DX-Y.NYB", "fx"),
+    # CME currency futures: same direction as the COT contracts (e.g. JPY/USD)
+    "EUR_FUT": ("6E=F", "fx"), "JPY_FUT": ("6J=F", "fx"), "GBP_FUT": ("6B=F", "fx"),
+    "CAD_FUT": ("6C=F", "fx"), "AUD_FUT": ("6A=F", "fx"), "CHF_FUT": ("6S=F", "fx"),
     "BTC": ("BTC-USD", "crypto"), "ETH": ("ETH-USD", "crypto"),
 }
 
@@ -52,7 +55,9 @@ def main():
         }
         with open(f"data/prices/{sym}.json", "w") as f:
             json.dump(out, f, separators=(",", ":"))
-        index[sym] = {"ticker": tk, "group": group, "first": out["t"][0], "last": out["t"][-1]}
+        c = out["c"]
+        index[sym] = {"ticker": tk, "group": group, "first": out["t"][0], "last": out["t"][-1],
+                      "close": c[-1], "prev": c[-2] if len(c) > 1 else c[-1]}
         print(f"OK {sym}: {len(df)} days, {out['t'][0]} -> {out['t'][-1]}")
 
     with open("data/prices/index.json", "w") as f:
