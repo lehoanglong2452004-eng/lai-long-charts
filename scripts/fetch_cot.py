@@ -1,3 +1,4 @@
+# © 2026 Lai Long Charts. Bảo lưu mọi quyền.
 """Download CFTC Commitments of Traders (futures only) and write one JSON per market.
 
 Source: CFTC annual files at https://www.cftc.gov/files/dea/history/
