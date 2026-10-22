@@ -111,13 +111,13 @@
   "ticker": "JPY=X",
   "group": "fx",
   "first": "2000-01-03",
-  "last": "2026-10-21"
+  "last": "2026-10-22"
  },
  "USDCAD": {
   "ticker": "CAD=X",
   "group": "fx",
   "first": "2003-09-17",
-  "last": "2026-10-21"
+  "last": "2026-10-22"
  },
  "EURUSD": {
   "ticker": "EURUSD=X",
@@ -147,7 +147,7 @@
   "ticker": "CNY=X",
   "group": "fx",
   "first": "2001-06-25",
-  "last": "2026-10-21"
+  "last": "2026-10-22"
  },
  "DXY": {
   "ticker": "DX-Y.NYB",
