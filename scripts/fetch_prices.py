@@ -1,3 +1,4 @@
+# © 2026 Lai Long Charts. Bảo lưu mọi quyền.
 """Download daily OHLCV history from Yahoo Finance and write one JSON per symbol.
 
 Output: data/prices/{SYMBOL}.json (columnar arrays, oldest first)
