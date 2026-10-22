@@ -1,0 +1,170 @@
+{
+ "GOLD": {
+  "ticker": "GC=F",
+  "group": "metals",
+  "first": "2000-08-30",
+  "last": "2026-10-21"
+ },
+ "SILVER": {
+  "ticker": "SI=F",
+  "group": "metals",
+  "first": "2000-08-30",
+  "last": "2026-10-21"
+ },
+ "PLATINUM": {
+  "ticker": "PL=F",
+  "group": "metals",
+  "first": "2000-01-04",
+  "last": "2026-10-21"
+ },
+ "PALLADIUM": {
+  "ticker": "PA=F",
+  "group": "metals",
+  "first": "2000-01-04",
+  "last": "2026-10-21"
+ },
+ "COPPER": {
+  "ticker": "HG=F",
+  "group": "metals",
+  "first": "2000-08-30",
+  "last": "2026-10-21"
+ },
+ "ALUMINUM": {
+  "ticker": "ALI=F",
+  "group": "metals",
+  "first": "2014-05-06",
+  "last": "2026-10-21"
+ },
+ "STEEL_HRC": {
+  "ticker": "HRC=F",
+  "group": "metals",
+  "first": "2008-10-20",
+  "last": "2026-10-21"
+ },
+ "WHEAT": {
+  "ticker": "ZW=F",
+  "group": "grains",
+  "first": "2000-07-17",
+  "last": "2026-10-21"
+ },
+ "CORN": {
+  "ticker": "ZC=F",
+  "group": "grains",
+  "first": "2000-07-17",
+  "last": "2026-10-21"
+ },
+ "SOYBEANS": {
+  "ticker": "ZS=F",
+  "group": "grains",
+  "first": "2000-09-15",
+  "last": "2026-10-21"
+ },
+ "SOY_OIL": {
+  "ticker": "ZL=F",
+  "group": "grains",
+  "first": "2000-03-15",
+  "last": "2026-10-21"
+ },
+ "SOY_MEAL": {
+  "ticker": "ZM=F",
+  "group": "grains",
+  "first": "2000-05-15",
+  "last": "2026-10-21"
+ },
+ "COFFEE_ARABICA": {
+  "ticker": "KC=F",
+  "group": "softs",
+  "first": "2000-01-03",
+  "last": "2026-10-21"
+ },
+ "WTI": {
+  "ticker": "CL=F",
+  "group": "energy",
+  "first": "2000-08-23",
+  "last": "2026-10-21"
+ },
+ "BRENT": {
+  "ticker": "BZ=F",
+  "group": "energy",
+  "first": "2007-07-30",
+  "last": "2026-10-21"
+ },
+ "NATGAS": {
+  "ticker": "NG=F",
+  "group": "energy",
+  "first": "2000-08-30",
+  "last": "2026-10-21"
+ },
+ "RBOB": {
+  "ticker": "RB=F",
+  "group": "energy",
+  "first": "2000-11-01",
+  "last": "2026-10-21"
+ },
+ "HEATING_OIL": {
+  "ticker": "HO=F",
+  "group": "energy",
+  "first": "2000-09-01",
+  "last": "2026-10-21"
+ },
+ "USDJPY": {
+  "ticker": "JPY=X",
+  "group": "fx",
+  "first": "2000-01-03",
+  "last": "2026-10-21"
+ },
+ "USDCAD": {
+  "ticker": "CAD=X",
+  "group": "fx",
+  "first": "2003-09-17",
+  "last": "2026-10-21"
+ },
+ "EURUSD": {
+  "ticker": "EURUSD=X",
+  "group": "fx",
+  "first": "2003-12-01",
+  "last": "2026-10-22"
+ },
+ "GBPUSD": {
+  "ticker": "GBPUSD=X",
+  "group": "fx",
+  "first": "2003-12-01",
+  "last": "2026-10-22"
+ },
+ "AUDUSD": {
+  "ticker": "AUDUSD=X",
+  "group": "fx",
+  "first": "2006-05-16",
+  "last": "2026-10-22"
+ },
+ "USDCHF": {
+  "ticker": "CHF=X",
+  "group": "fx",
+  "first": "2003-09-17",
+  "last": "2026-10-21"
+ },
+ "USDCNY": {
+  "ticker": "CNY=X",
+  "group": "fx",
+  "first": "2001-06-25",
+  "last": "2026-10-21"
+ },
+ "DXY": {
+  "ticker": "DX-Y.NYB",
+  "group": "fx",
+  "first": "2000-01-03",
+  "last": "2026-10-21"
+ },
+ "BTC": {
+  "ticker": "BTC-USD",
+  "group": "crypto",
+  "first": "2014-09-17",
+  "last": "2026-10-22"
+ },
+ "ETH": {
+  "ticker": "ETH-USD",
+  "group": "crypto",
+  "first": "2017-11-09",
+  "last": "2026-10-22"
+ }
+}

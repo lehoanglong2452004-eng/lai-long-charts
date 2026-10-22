@@ -1,0 +1,191 @@
+{
+ "GOLD": {
+  "group": "metals",
+  "reports": [
+   "legacy",
+   "disagg"
+  ]
+ },
+ "SILVER": {
+  "group": "metals",
+  "reports": [
+   "legacy",
+   "disagg"
+  ]
+ },
+ "PLATINUM": {
+  "group": "metals",
+  "reports": [
+   "legacy",
+   "disagg"
+  ]
+ },
+ "PALLADIUM": {
+  "group": "metals",
+  "reports": [
+   "legacy",
+   "disagg"
+  ]
+ },
+ "COPPER": {
+  "group": "metals",
+  "reports": [
+   "legacy",
+   "disagg"
+  ]
+ },
+ "ALUMINUM": {
+  "group": "metals",
+  "reports": [
+   "legacy",
+   "disagg"
+  ]
+ },
+ "STEEL_HRC": {
+  "group": "metals",
+  "reports": [
+   "legacy",
+   "disagg"
+  ]
+ },
+ "WHEAT": {
+  "group": "grains",
+  "reports": [
+   "legacy",
+   "disagg"
+  ]
+ },
+ "CORN": {
+  "group": "grains",
+  "reports": [
+   "legacy",
+   "disagg"
+  ]
+ },
+ "SOYBEANS": {
+  "group": "grains",
+  "reports": [
+   "legacy",
+   "disagg"
+  ]
+ },
+ "SOY_OIL": {
+  "group": "grains",
+  "reports": [
+   "legacy",
+   "disagg"
+  ]
+ },
+ "SOY_MEAL": {
+  "group": "grains",
+  "reports": [
+   "legacy",
+   "disagg"
+  ]
+ },
+ "COFFEE_ARABICA": {
+  "group": "softs",
+  "reports": [
+   "legacy",
+   "disagg"
+  ]
+ },
+ "WTI": {
+  "group": "energy",
+  "reports": [
+   "legacy",
+   "disagg"
+  ]
+ },
+ "BRENT": {
+  "group": "energy",
+  "reports": [
+   "legacy",
+   "disagg"
+  ]
+ },
+ "NATGAS": {
+  "group": "energy",
+  "reports": [
+   "legacy",
+   "disagg"
+  ]
+ },
+ "RBOB": {
+  "group": "energy",
+  "reports": [
+   "legacy",
+   "disagg"
+  ]
+ },
+ "HEATING_OIL": {
+  "group": "energy",
+  "reports": [
+   "legacy",
+   "disagg"
+  ]
+ },
+ "JPY": {
+  "group": "fx",
+  "reports": [
+   "legacy",
+   "tff"
+  ]
+ },
+ "CAD": {
+  "group": "fx",
+  "reports": [
+   "legacy",
+   "tff"
+  ]
+ },
+ "EUR": {
+  "group": "fx",
+  "reports": [
+   "legacy",
+   "tff"
+  ]
+ },
+ "GBP": {
+  "group": "fx",
+  "reports": [
+   "legacy",
+   "tff"
+  ]
+ },
+ "AUD": {
+  "group": "fx",
+  "reports": [
+   "legacy",
+   "tff"
+  ]
+ },
+ "CHF": {
+  "group": "fx",
+  "reports": [
+   "legacy",
+   "tff"
+  ]
+ },
+ "USD_INDEX": {
+  "group": "fx",
+  "reports": [
+   "legacy",
+   "tff"
+  ]
+ },
+ "BTC": {
+  "group": "crypto",
+  "reports": [
+   "legacy",
+   "tff"
+  ]
+ },
+ "ETH": {
+  "group": "crypto",
+  "reports": [
+   "legacy",
+   "tff"
+  ]
+ }
+}
