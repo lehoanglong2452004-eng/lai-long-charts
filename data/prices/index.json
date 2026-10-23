@@ -4,7 +4,7 @@
   "group": "metals",
   "first": "2000-08-30",
   "last": "2026-10-22",
-  "close": 4105.600098,
+  "close": 4032.100098,
   "prev": 4150.0
  },
  "SILVER": {
@@ -12,7 +12,7 @@
   "group": "metals",
   "first": "2000-08-30",
   "last": "2026-10-22",
-  "close": 56.415001,
+  "close": 54.505001,
   "prev": 57.422001
  },
  "PLATINUM": {
@@ -20,7 +20,7 @@
   "group": "metals",
   "first": "2000-01-04",
   "last": "2026-10-22",
-  "close": 1596.0,
+  "close": 1565.400024,
   "prev": 1625.5
  },
  "PALLADIUM": {
@@ -28,7 +28,7 @@
   "group": "metals",
   "first": "2000-01-04",
   "last": "2026-10-22",
-  "close": 1060.5,
+  "close": 1048.5,
   "prev": 1084.699951
  },
  "COPPER": {
@@ -36,31 +36,31 @@
   "group": "metals",
   "first": "2000-08-30",
   "last": "2026-10-22",
-  "close": 6.483,
+  "close": 6.397,
   "prev": 6.543
  },
  "ALUMINUM": {
   "ticker": "ALI=F",
   "group": "metals",
   "first": "2014-05-06",
-  "last": "2026-10-21",
-  "close": 3177.75,
-  "prev": 3109.0
+  "last": "2026-10-22",
+  "close": 3091.5,
+  "prev": 3177.75
  },
  "STEEL_HRC": {
   "ticker": "HRC=F",
   "group": "metals",
   "first": "2008-10-20",
-  "last": "2026-10-21",
-  "close": 1286.0,
-  "prev": 1285.0
+  "last": "2026-10-22",
+  "close": 1339.0,
+  "prev": 1286.0
  },
  "WHEAT": {
   "ticker": "ZW=F",
   "group": "grains",
   "first": "2000-07-17",
   "last": "2026-10-22",
-  "close": 627.75,
+  "close": 631.0,
   "prev": 628.25
  },
  "CORN": {
@@ -68,7 +68,7 @@
   "group": "grains",
   "first": "2000-07-17",
   "last": "2026-10-22",
-  "close": 463.75,
+  "close": 462.25,
   "prev": 463.25
  },
  "SOYBEANS": {
@@ -76,7 +76,7 @@
   "group": "grains",
   "first": "2000-09-15",
   "last": "2026-10-22",
-  "close": 1243.25,
+  "close": 1256.0,
   "prev": 1245.25
  },
  "SOY_OIL": {
@@ -84,7 +84,7 @@
   "group": "grains",
   "first": "2000-03-15",
   "last": "2026-10-22",
-  "close": 65.860001,
+  "close": 66.849998,
   "prev": 65.970001
  },
  "SOY_MEAL": {
@@ -92,23 +92,23 @@
   "group": "grains",
   "first": "2000-05-15",
   "last": "2026-10-22",
-  "close": 347.200012,
+  "close": 348.5,
   "prev": 348.299988
  },
  "COFFEE_ARABICA": {
   "ticker": "KC=F",
   "group": "softs",
   "first": "2000-01-03",
-  "last": "2026-10-21",
-  "close": 316.149994,
-  "prev": 311.299988
+  "last": "2026-10-22",
+  "close": 311.399994,
+  "prev": 316.149994
  },
  "WTI": {
   "ticker": "CL=F",
   "group": "energy",
   "first": "2000-08-23",
   "last": "2026-10-22",
-  "close": 98.57,
+  "close": 99.220001,
   "prev": 97.150002
  },
  "BRENT": {
@@ -116,7 +116,7 @@
   "group": "energy",
   "first": "2007-07-30",
   "last": "2026-10-22",
-  "close": 110.769997,
+  "close": 112.849998,
   "prev": 108.82
  },
  "NATGAS": {
@@ -124,7 +124,7 @@
   "group": "energy",
   "first": "2000-08-30",
   "last": "2026-10-22",
-  "close": 2.758,
+  "close": 2.768,
   "prev": 2.79
  },
  "RBOB": {
@@ -132,7 +132,7 @@
   "group": "energy",
   "first": "2000-11-01",
   "last": "2026-10-22",
-  "close": 3.0807,
+  "close": 3.0792,
   "prev": 3.1205
  },
  "HEATING_OIL": {
@@ -140,63 +140,63 @@
   "group": "energy",
   "first": "2000-09-01",
   "last": "2026-10-22",
-  "close": 4.6392,
+  "close": 4.7481,
   "prev": 4.7633
  },
  "USDJPY": {
   "ticker": "JPY=X",
   "group": "fx",
   "first": "2000-01-03",
-  "last": "2026-10-22",
-  "close": 157.723007,
-  "prev": 158.268005
+  "last": "2026-10-23",
+  "close": 156.389008,
+  "prev": 158.132004
  },
  "USDCAD": {
   "ticker": "CAD=X",
   "group": "fx",
   "first": "2003-09-17",
-  "last": "2026-10-21",
-  "close": 1.40662,
-  "prev": 1.41053
+  "last": "2026-10-23",
+  "close": 1.3996,
+  "prev": 1.4042
  },
  "EURUSD": {
   "ticker": "EURUSD=X",
   "group": "fx",
   "first": "2003-12-01",
-  "last": "2026-10-22",
-  "close": 1.124733,
-  "prev": 1.122675
+  "last": "2026-10-23",
+  "close": 1.122586,
+  "prev": 1.123469
  },
  "GBPUSD": {
   "ticker": "GBPUSD=X",
   "group": "fx",
   "first": "2003-12-01",
-  "last": "2026-10-22",
-  "close": 1.339872,
-  "prev": 1.337327
+  "last": "2026-10-23",
+  "close": 1.340501,
+  "prev": 1.339567
  },
  "AUDUSD": {
   "ticker": "AUDUSD=X",
   "group": "fx",
   "first": "2006-05-16",
-  "last": "2026-10-22",
-  "close": 0.701754,
-  "prev": 0.700658
+  "last": "2026-10-23",
+  "close": 0.702247,
+  "prev": 0.70293
  },
  "USDCHF": {
   "ticker": "CHF=X",
   "group": "fx",
   "first": "2003-09-17",
-  "last": "2026-10-22",
-  "close": 0.82281,
-  "prev": 0.82563
+  "last": "2026-10-23",
+  "close": 0.81998,
+  "prev": 0.824
  },
  "USDCNY": {
   "ticker": "CNY=X",
   "group": "fx",
   "first": "2001-06-25",
-  "last": "2026-10-22",
-  "close": 6.6737,
+  "last": "2026-10-23",
+  "close": 6.674,
   "prev": 6.6779
  },
  "DXY": {
@@ -204,7 +204,7 @@
   "group": "fx",
   "first": "2000-01-03",
   "last": "2026-10-22",
-  "close": 101.579002,
+  "close": 101.510002,
   "prev": 101.779999
  },
  "EUR_FUT": {
@@ -212,7 +212,7 @@
   "group": "fx",
   "first": "2000-09-12",
   "last": "2026-10-22",
-  "close": 1.1268,
+  "close": 1.1248,
   "prev": 1.12355
  },
  "JPY_FUT": {
@@ -220,7 +220,7 @@
   "group": "fx",
   "first": "2000-09-13",
   "last": "2026-10-22",
-  "close": 0.006367,
+  "close": 0.006429,
   "prev": 0.00633
  },
  "GBP_FUT": {
@@ -228,7 +228,7 @@
   "group": "fx",
   "first": "2000-10-05",
   "last": "2026-10-22",
-  "close": 1.3401,
+  "close": 1.3407,
   "prev": 1.3385
  },
  "CAD_FUT": {
@@ -236,7 +236,7 @@
   "group": "fx",
   "first": "2000-05-23",
   "last": "2026-10-22",
-  "close": 0.71435,
+  "close": 0.71605,
   "prev": 0.7126
  },
  "AUD_FUT": {
@@ -244,7 +244,7 @@
   "group": "fx",
   "first": "2000-11-08",
   "last": "2026-10-22",
-  "close": 0.70095,
+  "close": 0.70125,
   "prev": 0.70205
  },
  "CHF_FUT": {
@@ -252,23 +252,23 @@
   "group": "fx",
   "first": "2000-11-10",
   "last": "2026-10-22",
-  "close": 1.22275,
+  "close": 1.22725,
   "prev": 1.21925
  },
  "BTC": {
   "ticker": "BTC-USD",
   "group": "crypto",
   "first": "2014-09-17",
-  "last": "2026-10-22",
-  "close": 82683.96875,
-  "prev": 82941.0
+  "last": "2026-10-23",
+  "close": 81423.273438,
+  "prev": 84011.96875
  },
  "ETH": {
   "ticker": "ETH-USD",
   "group": "crypto",
   "first": "2017-11-09",
-  "last": "2026-10-22",
-  "close": 2438.0,
-  "prev": 2446.730713
+  "last": "2026-10-23",
+  "close": 2393.370117,
+  "prev": 2470.766113
  }
 }
