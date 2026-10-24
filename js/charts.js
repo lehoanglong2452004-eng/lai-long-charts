@@ -178,7 +178,7 @@ function createCell(conf, onChange, onMax) {
 
   async function loadDelayed(my) {
     try {
-      const [res, ctr] = await Promise.all([loadYahoo(BY_ID[conf.sym], conf.tf), contractFor(BY_ID[conf.sym])]);
+      const [res, ctr] = await Promise.all([loadYahoo(BY_ID[conf.sym], conf.tf), contractFor(BY_ID[conf.sym], conf.tf)]);
       if (my !== token || !alive) return;
       contract = ctr;
       bars = res.bars;
@@ -194,7 +194,7 @@ function createCell(conf, onChange, onMax) {
 
   async function refreshDelayed(my) {
     try {
-      const [res, ctr] = await Promise.all([loadYahoo(BY_ID[conf.sym], conf.tf), contractFor(BY_ID[conf.sym])]);
+      const [res, ctr] = await Promise.all([loadYahoo(BY_ID[conf.sym], conf.tf), contractFor(BY_ID[conf.sym], conf.tf)]);
       if (my !== token || !alive) return;
       contract = ctr;
       const lastT = bars.length ? bars[bars.length - 1].time : 0;
@@ -308,6 +308,7 @@ function createCell(conf, onChange, onMax) {
       contract.est ? t('ctrest') : t('ctrfeed'),
       `${t('ctrroll')}: ${dayLabel(contract.until)}`,
       cal && cal.code !== contract.code ? `${t('calfront')}: ${cal.code} (${monthLabel(cal, lg)})` : '',
+      contract.split ? `${t('ctrsplit')}: ${t('ctrdaily')} ${monthLabel(contract.split.daily, lg)}, ${t('ctrintra')} ${monthLabel(contract.split.intraday, lg)}` : '',
       t('ctrcont'),
     ].filter(Boolean).join('\n');
   }
@@ -391,17 +392,27 @@ function createCell(conf, onChange, onMax) {
 }
 
 // ---------------------------------------------------------------- data sources
-// Contract Yahoo is quoting per price key: intraday meta (every deploy) first, then the daily index.
+// Contract Yahoo is quoting per price key, confirmed by price in the fetch scripts. Near a roll Yahoo's
+// intraday and daily series can follow different months (24 Oct 2026: natural gas intraday on Dec, daily
+// on Nov), so each timeframe reads its own source first: intraday meta (every deploy) or the daily index.
 let ctrFeed = { at: 0, p: null };
-function contractFor(sym) {
-  if (!SPECS[sym.price]) return Promise.resolve(null);
+function feedContracts(key) {
   if (!ctrFeed.p || Date.now() - ctrFeed.at > POLL_MS / 2) {
     ctrFeed = { at: Date.now(), p: Promise.all([
       loadJSON('data/intraday/meta.json', true).catch(() => ({})),
       loadJSON('data/prices/index.json').catch(() => ({})),
     ]) };
   }
-  return ctrFeed.p.then(([m, i]) => resolveContract(sym.price, m[sym.price]?.contract || i[sym.price]?.contract));
+  return ctrFeed.p.then(([m, i]) => ({ intra: m[key]?.contract, daily: i[key]?.contract }));
+}
+const sameMonth = (a, b) => a.month === b.month && a.year === b.year;
+async function contractFor(sym, tf) {
+  if (!SPECS[sym.price]) return null;
+  const f = await feedContracts(sym.price);
+  const [mine, other] = isIntra(tf) ? [f.intra, f.daily] : [f.daily, f.intra];
+  const c = resolveContract(sym.price, mine || other);
+  if (c && mine && other && !sameMonth(mine, other)) c.split = { intraday: f.intra, daily: f.daily };
+  return c;
 }
 
 const isIntra = tf => TF[tf] < 86400;
@@ -433,7 +444,10 @@ function aggregate(bars, sec) {
 async function dailyBars(sym, tf) {
   const d = await loadJSON(`data/prices/${sym.price}.json`);
   let bars = fromCols(d, dayTime);
-  // extend with today's session built from hourly bars (futures/FX sessions roll at ~18:00 New York)
+  // extend with today's session built from hourly bars (futures/FX sessions roll at ~18:00 New York),
+  // unless the hourly series is on another contract month than the daily one (mid-roll)
+  const f = SPECS[sym.price] ? await feedContracts(sym.price) : {};
+  if (f.intra && f.daily && !sameMonth(f.intra, f.daily)) return tf === '1W' ? aggregate(bars, TF['1W']) : bars;
   try {
     const h = await loadJSON(`data/intraday/${sym.price}_1h.json`, true);
     const lastDay = d.t[d.t.length - 1];

@@ -36,6 +36,7 @@ const DICT = {
     ctrfeed: 'Contract named by the data feed (Yahoo).',
     ctrest: 'Estimated from the exchange calendar (the feed did not name the contract).',
     ctrcont: 'Continuous series: older bars belong to earlier contracts, so a gap can appear at each roll.',
+    ctrsplit: 'Mid-roll on Yahoo', ctrdaily: 'daily bars on', ctrintra: 'intraday bars on',
   },
   vi: {
     cot: 'COT', seasonal: 'MÙA VỤ', charts: 'BIỂU ĐỒ',
@@ -71,6 +72,7 @@ const DICT = {
     ctrfeed: 'Tên hợp đồng do nguồn dữ liệu (Yahoo) ghi.',
     ctrest: 'Ước tính theo lịch sàn (nguồn dữ liệu không ghi tên hợp đồng).',
     ctrcont: 'Chuỗi liên tục: nến cũ thuộc các hợp đồng trước, nên có thể có bước nhảy ở mỗi lần chuyển tháng.',
+    ctrsplit: 'Yahoo đang chuyển kỳ hạn', ctrdaily: 'nến ngày theo', ctrintra: 'nến trong ngày theo',
   },
 };
 
