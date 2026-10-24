@@ -68,7 +68,8 @@ def main():
                 json.dump(out, f, separators=(",", ":"))
             meta[sym][iv] = out["t"][-1]
             if tk.endswith("=F") and "contract" not in meta[sym]:  # once per symbol
-                contract = contract_of(obj, df, lambda s, iv=iv: yf.Ticker(s).history(period="5d", interval=iv, auto_adjust=False))
+                contract = contract_of(obj, df, lambda s, iv=iv: yf.Ticker(s).history(period="5d", interval=iv, auto_adjust=False),
+                                       complete_only=True)
                 if contract:
                     meta[sym]["contract"] = contract
             ok += 1
