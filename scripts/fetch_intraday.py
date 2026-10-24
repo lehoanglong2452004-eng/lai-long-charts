@@ -10,6 +10,7 @@ from datetime import datetime, timedelta, timezone
 import yfinance as yf
 
 from fetch_prices import TICKERS
+from contracts import contract_of
 
 INTERVALS = {"5m": "15d", "1h": "1y"}  # interval: lookback period
 SKIP = {"BTC", "ETH"}
@@ -28,15 +29,19 @@ def recent_gap(df):
 
 
 def fetch(tk, iv, period):
-    best = None
+    """(bars, contract quoted by Yahoo for futures tickers or None)."""
+    best, contract = None, None
     for attempt in range(3):
-        df = yf.Ticker(tk).history(period=period, interval=iv, auto_adjust=False).dropna(subset=["Close"])
+        obj = yf.Ticker(tk)
+        df = obj.history(period=period, interval=iv, auto_adjust=False).dropna(subset=["Close"])
+        if tk.endswith("=F") and not df.empty:
+            contract = contract_of(obj) or contract
         if best is None or len(df) > len(best):
             best = df
         if df.empty or not recent_gap(df):
-            return df
+            return df, contract
         time.sleep(2)
-    return best
+    return best, contract
 
 
 def main():
@@ -48,7 +53,7 @@ def main():
         meta[sym] = {}
         for iv, period in INTERVALS.items():
             try:
-                df = fetch(tk, iv, period)
+                df, contract = fetch(tk, iv, period)
             except Exception as e:
                 print(f"ERROR {sym} {iv}: {e}")
                 continue
@@ -64,6 +69,8 @@ def main():
             with open(f"data/intraday/{sym}_{iv}.json", "w") as f:
                 json.dump(out, f, separators=(",", ":"))
             meta[sym][iv] = out["t"][-1]
+            if contract:
+                meta[sym]["contract"] = contract
             ok += 1
         time.sleep(0.3)
     meta["_updated"] = int(datetime.now(timezone.utc).timestamp())

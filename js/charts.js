@@ -2,11 +2,13 @@
 // Multi-chart tab: candles/line, volume, volume profile, bar countdown.
 // Crypto and metal/energy perps stream live from Binance/OKX/Bybit/Hyperliquid (auto failover);
 // futures/FX use Yahoo intraday published with each deploy (~15 min delay).
+// Each cell names what it shows: perpetual, spot, index, or the futures contract month (js/contracts.js).
 import { SYMBOLS, BY_ID, GROUPS } from './config.js';
-import { t, name } from './i18n.js';
+import { t, name, lang } from './i18n.js';
 import { el, loadJSON, makeChart, LW, store, fmtPrice, fmtPct, fmtInt, signClass, dayTime, decimals, colors, css } from './util.js';
 import { seg, fullscreenBtn } from './ui.js';
 import { liveFeed, exchangesFor, marketName, EXCHANGE_LABEL } from './exchanges.js';
+import { SPECS, resolveContract, frontContract, instrumentKind, monthLabel, dayLabel } from './contracts.js';
 
 const TF = { '1m': 60, '5m': 300, '15m': 900, '30m': 1800, '1H': 3600, '4H': 14400, '1D': 86400, '1W': 604800 };
 const LAYOUTS = { 1: [1, 1], 2: [2, 1], 4: [2, 2], 6: [3, 2], 9: [3, 3] };
@@ -33,7 +35,7 @@ export function mount(root) {
       })),
     el('span', { class: 'note', style: 'padding:0' },
       el('span', { class: 'badge live' }, t('live')), ' Binance · OKX · Bybit · Hyperliquid · ',
-      el('span', { class: 'badge delayed' }, t('delayed')), ' Yahoo ~15m · ',
+      el('span', { class: 'badge delayed' }, t('delayed')), ` ${t('delayedsrc')} · `,
       el('span', { class: 'badge eod' }, t('eod'))));
   const section = el('section', { class: 'content' }, bar, grid);
   bar.append(fullscreenBtn(() => section));
@@ -81,13 +83,14 @@ function createCell(conf, onChange, onMax) {
   node.append(head, chartEl);
 
   let chart = null, price = null, vol = null, bars = [], feed = null, poll = null, timer = null, token = 0, alive = true;
-  let source = 'eod', exchange = null, vpOn = conf.vp;
+  let source = 'eod', exchange = null, vpOn = conf.vp, contract = null;
 
   // ---------- header ----------
   const symSel = el('select', {
     onchange: e => { conf.sym = e.target.value; fixConf(); onChange(); load(); renderHead(); },
   }, ...GROUPS.map(g => el('optgroup', { label: t(g) },
     ...SYMBOLS.filter(s => s.group === g).map(s => el('option', { value: s.id, selected: s.id === conf.sym }, `${s.code} ${name(s)}`)))));
+  const ctrEl = el('span', { class: 'ctr' });
   const badge = el('span', { class: 'badge eod' });
   const pxEl = el('span', { class: 'cell-px' });
   const chgEl = el('span', {});
@@ -103,7 +106,9 @@ function createCell(conf, onChange, onMax) {
   fixConf();
   function srcSelect() {
     if (!liveEx().length) return null;
-    const opts = [['auto', 'AUTO'], ...liveEx().map(ex => [ex, EXCHANGE_LABEL[ex]]), ...(hasYahoo() ? [['yahoo', 'YAHOO FUT']] : [])];
+    const spec = SPECS[BY_ID[conf.sym].price];
+    const opts = [['auto', 'AUTO'], ...liveEx().map(ex => [ex, EXCHANGE_LABEL[ex]]),
+      ...(hasYahoo() ? [['yahoo', spec ? `${spec.exch} · YAHOO` : 'YAHOO']] : [])];
     return el('select', {
       class: 'src-sel', title: t('datasrc'),
       onchange: e => { conf.src = e.target.value; fixConf(); onChange(); load(); renderHead(); },
@@ -118,7 +123,7 @@ function createCell(conf, onChange, onMax) {
         v => { conf.type = v; onChange(); draw(); }),
       seg([{ v: true, label: 'VP', title: t('vp') }], vpOn ? true : null,
         () => { vpOn = !vpOn; conf.vp = vpOn; onChange(); renderHead(); drawVP(); }),
-      badge, pxEl, chgEl,
+      ctrEl, badge, pxEl, chgEl,
       el('button', { class: 'tbtn max-btn', title: t('maximize'), onclick: () => onMax(node) },
         node.classList.contains('max') ? '⤡' : '⤢'));
   }
@@ -133,6 +138,7 @@ function createCell(conf, onChange, onMax) {
   async function load() {
     const my = ++token;
     stopFeeds();
+    contract = null; ctrEl.textContent = ''; ctrEl.title = '';
     note.textContent = t('loading');
     if (useLive()) startLive(my);
     else loadDelayed(my);
@@ -172,8 +178,9 @@ function createCell(conf, onChange, onMax) {
 
   async function loadDelayed(my) {
     try {
-      const res = await loadYahoo(BY_ID[conf.sym], conf.tf);
+      const [res, ctr] = await Promise.all([loadYahoo(BY_ID[conf.sym], conf.tf), contractFor(BY_ID[conf.sym])]);
       if (my !== token || !alive) return;
+      contract = ctr;
       bars = res.bars;
       source = res.source; exchange = null;
       note.textContent = '';
@@ -187,8 +194,9 @@ function createCell(conf, onChange, onMax) {
 
   async function refreshDelayed(my) {
     try {
-      const res = await loadYahoo(BY_ID[conf.sym], conf.tf);
+      const [res, ctr] = await Promise.all([loadYahoo(BY_ID[conf.sym], conf.tf), contractFor(BY_ID[conf.sym])]);
       if (my !== token || !alive) return;
+      contract = ctr;
       const lastT = bars.length ? bars[bars.length - 1].time : 0;
       const fresh = res.bars.filter(b => b.time >= lastT);
       for (const b of fresh) pushBar(b);
@@ -279,6 +287,29 @@ function createCell(conf, onChange, onMax) {
       badge.textContent = `${t('live')} · ${EXCHANGE_LABEL[exchange]}`;
       badge.title = marketName(conf.sym, exchange) + (BY_ID[conf.sym].group === 'crypto' ? '' : ' (perpetual)');
     } else badge.textContent = t(source);
+    renderContract();
+  }
+
+  // what the chart shows: perpetual / spot / index, or the futures contract month
+  function renderContract() {
+    const sym = BY_ID[conf.sym], kind = instrumentKind(sym, source, exchange), lg = lang();
+    if (kind === 'future' && !contract) { ctrEl.textContent = ''; ctrEl.title = ''; return; }
+    if (kind !== 'future') {
+      ctrEl.textContent = t(kind);
+      const tips = { perp: t('perptip'), spot: t(sym.group === 'crypto' ? 'spottipc' : 'spottip'), index: t('indextip'), future: '' };
+      const cal = kind === 'perp' && sym.group !== 'crypto' ? frontContract(sym.price) : null;
+      ctrEl.title = tips[kind] + (cal ? `\n${t('calfront')}: ${cal.exch} ${cal.code} (${monthLabel(cal, lg)})` : '');
+      return;
+    }
+    ctrEl.textContent = `${contract.est ? '≈ ' : ''}${contract.exch} ${monthLabel(contract, lg)}`;
+    const cal = frontContract(sym.price);
+    ctrEl.title = [
+      `${contract.code} · ${contract.exch}${contract.name ? ' · Yahoo: ' + contract.name : ''}`,
+      contract.est ? t('ctrest') : t('ctrfeed'),
+      `${t('ctrroll')}: ${dayLabel(contract.until)}`,
+      cal && cal.code !== contract.code ? `${t('calfront')}: ${cal.code} (${monthLabel(cal, lg)})` : '',
+      t('ctrcont'),
+    ].filter(Boolean).join('\n');
   }
 
   // ---------- countdown (re-positioned under the last price label every second) ----------
@@ -360,6 +391,19 @@ function createCell(conf, onChange, onMax) {
 }
 
 // ---------------------------------------------------------------- data sources
+// Contract Yahoo is quoting per price key: intraday meta (every deploy) first, then the daily index.
+let ctrFeed = { at: 0, p: null };
+function contractFor(sym) {
+  if (!SPECS[sym.price]) return Promise.resolve(null);
+  if (!ctrFeed.p || Date.now() - ctrFeed.at > POLL_MS / 2) {
+    ctrFeed = { at: Date.now(), p: Promise.all([
+      loadJSON('data/intraday/meta.json', true).catch(() => ({})),
+      loadJSON('data/prices/index.json').catch(() => ({})),
+    ]) };
+  }
+  return ctrFeed.p.then(([m, i]) => resolveContract(sym.price, m[sym.price]?.contract || i[sym.price]?.contract));
+}
+
 const isIntra = tf => TF[tf] < 86400;
 const shiftT = (ts, tf) => isIntra(tf) ? ts + TZ_SHIFT : ts;
 const unshiftT = (ts, tf) => isIntra(tf) ? ts - TZ_SHIFT : ts;
