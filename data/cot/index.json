@@ -167,6 +167,13 @@
    "tff"
   ]
  },
+ "NZD": {
+  "group": "fx",
+  "reports": [
+   "legacy",
+   "tff"
+  ]
+ },
  "USD_INDEX": {
   "group": "fx",
   "reports": [
