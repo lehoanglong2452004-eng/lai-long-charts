@@ -5,7 +5,7 @@ import sys
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "scripts"))
 
-from contracts import contract_of, parse_contract  # noqa: E402
+from contracts import contract_of, parse_code, parse_contract  # noqa: E402
 
 
 def test_reads_month_and_year_from_yahoo_names():
@@ -34,3 +34,29 @@ def test_contract_of_never_raises():
 
     assert contract_of(Broken()) is None
     assert contract_of(Ok())["month"] == 12
+
+
+def test_reads_exchange_contract_codes():
+    c = parse_code("GCZ26.CMX", "Gold Dec 26", "COMEX")
+    assert (c["month"], c["year"], c["name"], c["exchange"]) == (12, 2026, "Gold Dec 26", "COMEX")
+    assert parse_code("CLF27.NYM")["month"] == 1
+    assert parse_code("6EZ26.CME")["year"] == 2026
+    assert parse_code("ALIX26")["month"] == 11
+    assert parse_code("GC=F") is None
+    assert parse_code(None) is None
+
+
+def test_falls_back_to_the_quote_summary():
+    class NoNames:
+        history_metadata = {"symbol": "GC=F", "shortName": "Gold"}
+        info = {"underlyingSymbol": "GCZ26.CMX", "shortName": "Gold Dec 26", "fullExchangeName": "COMEX"}
+
+    class InfoFails:
+        history_metadata = {"symbol": "GC=F"}
+
+        @property
+        def info(self):
+            raise RuntimeError("401 crumb")
+
+    assert contract_of(NoNames())["month"] == 12
+    assert contract_of(InfoFails()) is None
