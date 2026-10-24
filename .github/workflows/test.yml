@@ -1,0 +1,29 @@
+# © 2026 Lai Long Charts. Bảo lưu mọi quyền.
+name: Tests
+on:
+  push:
+    paths-ignore: ["data/**"]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: JavaScript syntax
+        run: for f in js/*.js; do node --check "$f"; done
+      - name: JavaScript tests
+        run: node --test tests/*.test.js
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install pytest
+      - name: Python syntax
+        run: python -m py_compile scripts/*.py
+      - name: Python tests
+        run: python -m pytest -q tests

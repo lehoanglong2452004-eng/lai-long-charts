@@ -17,6 +17,25 @@ COT (Commitments of Traders), Seasonal and multi-chart dashboard for commodities
 - **Seasonal** — year overlays + averages, monthly/quarterly heatmaps, multi-product comparison, overview grid
 - **Charts** — 1–9 chart layouts, candles/line, volume, volume profile, bar countdown, dark/light, EN/VI
 
+### What each chart shows
+
+The chart header names the instrument behind the price, so a perpetual is never mistaken for a futures contract:
+
+| Label | Meaning |
+|---|---|
+| `PERPETUAL` + `LIVE · BINANCE` | USDT perpetual on the exchange shown; never expires, can trade slightly away from the exchange futures price |
+| `SPOT` | Spot market (crypto on Binance/OKX/Bybit, FX rates from Yahoo) |
+| `COMEX DEC 2026` + `DELAYED 12m` | Front-month futures from CME Group (COMEX, NYMEX, CBOT, CME) or ICE US, via Yahoo's continuous ticker |
+| `≈ COMEX DEC 2026` | Same, but the month is estimated from the exchange calendar because Yahoo did not name the contract |
+
+The contract month comes from Yahoo's chart metadata (e.g. "Gold Dec 26"), saved by the fetch scripts in `data/intraday/meta.json` and `data/prices/index.json`. When it is missing, `js/contracts.js` works out the front month from each exchange's listing cycle and last-trade rule (holidays ignored). Hover the label for the contract code, roll date and notes. A paid direct feed can later fill the same `contract` fields without changing the site.
+
+FX pairs: EURUSD, USDJPY, GBPUSD, AUDUSD, USDCAD, USDCHF, NZDUSD, EURJPY, GBPJPY, EURGBP, USDCNY and DXY; CME currency futures (6E, 6J, 6B, 6C, 6A, 6S, 6N) back the COT price overlay.
+
 Deployed by `.github/workflows/deploy.yml` (on push, every 15 minutes, and after each data update).
 
 Run manually: **Actions → Update COT / Update Prices → Run workflow**.
+
+## Tests
+
+`node --test tests/*.test.js` and `python -m pytest -q tests` (run on every push by `.github/workflows/test.yml`).

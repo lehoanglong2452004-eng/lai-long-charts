@@ -1,1 +1,3 @@
 data/intraday/
+__pycache__/
+.pytest_cache/
