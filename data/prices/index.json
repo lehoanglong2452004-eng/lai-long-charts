@@ -91,9 +91,9 @@
   "close": 1292.0,
   "prev": 1286.0,
   "contract": {
-   "name": "U.S. Midwest Domestic Hot-Rolle",
-   "month": 2,
-   "year": 2027,
+   "name": "HRCV26.CMX",
+   "month": 10,
+   "year": 2026,
    "exchange": "COMEX"
   }
  },
@@ -450,7 +450,7 @@
   "group": "crypto",
   "first": "2014-09-17",
   "last": "2026-10-24",
-  "close": 80782.039062,
+  "close": 80764.84375,
   "prev": 81311.890625
  },
  "ETH": {
@@ -458,7 +458,7 @@
   "group": "crypto",
   "first": "2017-11-09",
   "last": "2026-10-24",
-  "close": 2379.659912,
+  "close": 2377.98999,
   "prev": 2386.189209
  }
 }
