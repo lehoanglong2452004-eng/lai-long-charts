@@ -5,7 +5,7 @@ import sys
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "scripts"))
 
-from contracts import code_symbol, contract_of, parse_code, parse_contract  # noqa: E402
+from contracts import code_symbol, contract_of, gap, parse_code, parse_contract  # noqa: E402
 
 
 def test_reads_month_and_year_from_yahoo_names():
@@ -84,6 +84,20 @@ def test_code_only_checks_earlier_months():
     prices = {"BZF27.NYM": Frame([115.9]), "BZZ26.NYM": Frame([116.72]), "BZX26.NYM": Frame([])}
     c = contract_of(ticker("Brent Crude Oil Last Day Financ", "BZF27.NYM"), Frame([116.72]), prices.get)
     assert (c["month"], c["year"], c["name"]) == (12, 2026, "BZZ26.NYM")
+    # AUD Dec was only 0.05% from the Nov serial the series really follows
+    prices = {"6AZ26.CME": Frame([0.70035]), "6AX26.CME": Frame([0.7])}
+    c = contract_of(ticker(None, "6AZ26.CME"), Frame([0.7]), prices.get)
+    assert (c["month"], c["year"]) == (11, 2026)
+    # no candidate matches: the code alone is not trusted, the site uses its calendar
+    assert contract_of(ticker(None, "HRCG27.CMX"), Frame([900.0]), lambda s: Frame([950.0])) is None
+    assert contract_of(ticker(None, "HRCG27.CMX")) is None
+
+
+def test_intraday_compares_the_last_complete_bar():
+    cont = Frame([2.70, 2.64, 2.6400])
+    other = Frame([2.70, 2.64, 2.6420])  # newest bar still forming
+    assert gap(cont, other) > 0.0005
+    assert gap(cont, other, complete_only=True) == 0
 
 
 def test_unconfirmed_prefers_the_name():
