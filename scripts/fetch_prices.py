@@ -47,7 +47,7 @@ def main():
             df = obj.history(start=START, interval="1d", auto_adjust=False)
             df = df.dropna(subset=["Close"])
             if tk.endswith("=F"):
-                contract = contract_of(obj)
+                contract = contract_of(obj, df, lambda s: yf.Ticker(s).history(period="1mo", interval="1d", auto_adjust=False))
         except Exception as e:
             print(f"ERROR {sym} ({tk}): {e}")
             df = None
