@@ -134,8 +134,8 @@
   "prev": 1253.0,
   "contract": {
    "name": "Soybean Futures,Nov-2026",
-   "month": 1,
-   "year": 2027,
+   "month": 11,
+   "year": 2026,
    "exchange": "CBOT"
   }
  },
@@ -203,9 +203,9 @@
   "close": 116.720001,
   "prev": 113.169998,
   "contract": {
-   "name": "Brent Crude Oil Last Day Financ",
-   "month": 1,
-   "year": 2027,
+   "name": "BZZ26.NYM",
+   "month": 12,
+   "year": 2026,
    "exchange": "NY Mercantile"
   }
  },
@@ -218,7 +218,7 @@
   "prev": 2.796,
   "contract": {
    "name": "Natural Gas Nov 26",
-   "month": 12,
+   "month": 11,
    "year": 2026,
    "exchange": "NY Mercantile"
   }
@@ -397,8 +397,8 @@
   "close": 0.7149,
   "prev": 0.7148,
   "contract": {
-   "name": "Canadian Dollar Futures,Dec-202",
-   "month": 12,
+   "name": "6CX26.CME",
+   "month": 11,
    "year": 2026,
    "exchange": "CME"
   }
@@ -411,8 +411,8 @@
   "close": 0.70325,
   "prev": 0.70125,
   "contract": {
-   "name": "Australian Dollar Futures,Dec-2",
-   "month": 12,
+   "name": "6AX26.CME",
+   "month": 11,
    "year": 2026,
    "exchange": "CME"
   }
@@ -450,7 +450,7 @@
   "group": "crypto",
   "first": "2014-09-17",
   "last": "2026-10-24",
-  "close": 80814.320312,
+  "close": 80782.039062,
   "prev": 81311.890625
  },
  "ETH": {
@@ -458,7 +458,7 @@
   "group": "crypto",
   "first": "2017-11-09",
   "last": "2026-10-24",
-  "close": 2380.76001,
+  "close": 2379.659912,
   "prev": 2386.189209
  }
 }
