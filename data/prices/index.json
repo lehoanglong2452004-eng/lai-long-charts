@@ -89,13 +89,7 @@
   "first": "2008-10-20",
   "last": "2026-10-23",
   "close": 1292.0,
-  "prev": 1286.0,
-  "contract": {
-   "name": "HRCV26.CMX",
-   "month": 10,
-   "year": 2026,
-   "exchange": "COMEX"
-  }
+  "prev": 1286.0
  },
  "WHEAT": {
   "ticker": "ZW=F",
@@ -103,13 +97,7 @@
   "first": "2000-07-17",
   "last": "2026-10-23",
   "close": 625.0,
-  "prev": 624.75,
-  "contract": {
-   "name": "Chicago SRW Wheat Futures,Dec-2",
-   "month": 12,
-   "year": 2026,
-   "exchange": "CBOT"
-  }
+  "prev": 624.75
  },
  "CORN": {
   "ticker": "ZC=F",
@@ -263,7 +251,7 @@
   "ticker": "CAD=X",
   "group": "fx",
   "first": "2003-09-17",
-  "last": "2026-10-24",
+  "last": "2026-10-25",
   "close": 1.4004,
   "prev": 1.40026
  },
@@ -336,7 +324,7 @@
   "group": "fx",
   "first": "2001-06-25",
   "last": "2026-10-24",
-  "close": 6.6702,
+  "close": 6.6606,
   "prev": 6.6779
  },
  "DXY": {
@@ -449,16 +437,16 @@
   "ticker": "BTC-USD",
   "group": "crypto",
   "first": "2014-09-17",
-  "last": "2026-10-24",
-  "close": 80764.84375,
-  "prev": 81311.890625
+  "last": "2026-10-25",
+  "close": 80763.59375,
+  "prev": 81074.1875
  },
  "ETH": {
   "ticker": "ETH-USD",
   "group": "crypto",
   "first": "2017-11-09",
-  "last": "2026-10-24",
-  "close": 2377.98999,
-  "prev": 2386.189209
+  "last": "2026-10-25",
+  "close": 2355.689941,
+  "prev": 2384.077393
  }
 }
