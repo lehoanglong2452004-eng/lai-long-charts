@@ -3,9 +3,9 @@
   "ticker": "GC=F",
   "group": "metals",
   "first": "2000-08-30",
-  "last": "2026-11-19",
-  "close": 3525.300049,
-  "prev": 3741.899902,
+  "last": "2026-11-20",
+  "close": 3539.0,
+  "prev": 3685.5,
   "contract": {
    "name": "Gold Dec 26",
    "month": 12,
@@ -17,9 +17,9 @@
   "ticker": "SI=F",
   "group": "metals",
   "first": "2000-08-30",
-  "last": "2026-11-19",
-  "close": 41.325001,
-  "prev": 44.999001,
+  "last": "2026-11-20",
+  "close": 41.080002,
+  "prev": 44.318001,
   "contract": {
    "name": "Silver Dec 26",
    "month": 12,
@@ -31,9 +31,9 @@
   "ticker": "PL=F",
   "group": "metals",
   "first": "2000-01-04",
-  "last": "2026-11-19",
-  "close": 1293.599976,
-  "prev": 1360.099976,
+  "last": "2026-11-20",
+  "close": 1286.0,
+  "prev": 1347.599976,
   "contract": {
    "name": "Platinum Jan 27",
    "month": 1,
@@ -45,9 +45,9 @@
   "ticker": "PA=F",
   "group": "metals",
   "first": "2000-01-04",
-  "last": "2026-11-19",
-  "close": 881.0,
-  "prev": 950.099976,
+  "last": "2026-11-20",
+  "close": 893.0,
+  "prev": 916.700012,
   "contract": {
    "name": "Palladium Dec 26",
    "month": 12,
@@ -59,9 +59,9 @@
   "ticker": "HG=F",
   "group": "metals",
   "first": "2000-08-30",
-  "last": "2026-11-19",
-  "close": 5.5045,
-  "prev": 5.6595,
+  "last": "2026-11-20",
+  "close": 5.465,
+  "prev": 5.625,
   "contract": {
    "name": "Copper Dec 26",
    "month": 12,
@@ -73,9 +73,9 @@
   "ticker": "ALI=F",
   "group": "metals",
   "first": "2014-05-06",
-  "last": "2026-11-19",
-  "close": 2794.75,
-  "prev": 2919.0,
+  "last": "2026-11-20",
+  "close": 2796.25,
+  "prev": 2839.5,
   "contract": {
    "name": "Aluminum Futures,Jan-2027",
    "month": 2,
@@ -87,7 +87,7 @@
   "ticker": "HRC=F",
   "group": "metals",
   "first": "2008-10-20",
-  "last": "2026-11-19",
+  "last": "2026-11-20",
   "close": 1401.0,
   "prev": 1352.0,
   "contract": {
@@ -101,9 +101,9 @@
   "ticker": "ZW=F",
   "group": "grains",
   "first": "2000-07-17",
-  "last": "2026-11-19",
-  "close": 592.5,
-  "prev": 570.0,
+  "last": "2026-11-20",
+  "close": 593.0,
+  "prev": 578.25,
   "contract": {
    "name": "Chicago SRW Wheat Futures,Dec-2",
    "month": 3,
@@ -115,9 +115,9 @@
   "ticker": "ZC=F",
   "group": "grains",
   "first": "2000-07-17",
-  "last": "2026-11-19",
-  "close": 451.25,
-  "prev": 435.5,
+  "last": "2026-11-20",
+  "close": 448.75,
+  "prev": 439.0,
   "contract": {
    "name": "Corn Futures,Dec-2026",
    "month": 3,
@@ -129,9 +129,9 @@
   "ticker": "ZS=F",
   "group": "grains",
   "first": "2000-09-15",
-  "last": "2026-11-19",
-  "close": 1207.25,
-  "prev": 1216.75,
+  "last": "2026-11-20",
+  "close": 1220.5,
+  "prev": 1207.5,
   "contract": {
    "name": "Soybean Futures,Jan-2027",
    "month": 1,
@@ -143,9 +143,9 @@
   "ticker": "ZL=F",
   "group": "grains",
   "first": "2000-03-15",
-  "last": "2026-11-19",
-  "close": 59.959999,
-  "prev": 59.880001,
+  "last": "2026-11-20",
+  "close": 60.0,
+  "prev": 60.09,
   "contract": {
    "name": "Soybean Oil Futures,Dec-2026",
    "month": 1,
@@ -157,9 +157,9 @@
   "ticker": "ZM=F",
   "group": "grains",
   "first": "2000-05-15",
-  "last": "2026-11-19",
-  "close": 332.100006,
-  "prev": 335.899994,
+  "last": "2026-11-20",
+  "close": 340.100006,
+  "prev": 332.299988,
   "contract": {
    "name": "Soybean Meal Futures,Jan-2027",
    "month": 1,
@@ -171,11 +171,11 @@
   "ticker": "KC=F",
   "group": "softs",
   "first": "2000-01-03",
-  "last": "2026-11-19",
-  "close": 275.5,
-  "prev": 280.950012,
+  "last": "2026-11-20",
+  "close": 268.700012,
+  "prev": 282.049988,
   "contract": {
-   "name": "Coffee Dec 26",
+   "name": "Coffee Mar 27",
    "month": 3,
    "year": 2027,
    "exchange": "ICE Futures"
@@ -185,9 +185,9 @@
   "ticker": "CL=F",
   "group": "energy",
   "first": "2000-08-23",
-  "last": "2026-11-19",
-  "close": 82.690002,
-  "prev": 83.260002,
+  "last": "2026-11-20",
+  "close": 83.620003,
+  "prev": 83.209999,
   "contract": {
    "name": "Crude Oil Dec 26",
    "month": 1,
@@ -199,9 +199,9 @@
   "ticker": "BZ=F",
   "group": "energy",
   "first": "2007-07-30",
-  "last": "2026-11-19",
-  "close": 89.739998,
-  "prev": 91.949997,
+  "last": "2026-11-20",
+  "close": 89.870003,
+  "prev": 91.980003,
   "contract": {
    "name": "Brent Crude Oil Last Day Financ",
    "month": 2,
@@ -213,13 +213,13 @@
   "ticker": "NG=F",
   "group": "energy",
   "first": "2000-08-30",
-  "last": "2026-11-19",
-  "close": 3.254,
-  "prev": 3.372,
+  "last": "2026-11-20",
+  "close": 3.791,
+  "prev": 3.268,
   "contract": {
    "name": "Natural Gas Dec 26",
-   "month": 12,
-   "year": 2026,
+   "month": 1,
+   "year": 2027,
    "exchange": "NY Mercantile"
   }
  },
@@ -227,9 +227,9 @@
   "ticker": "RB=F",
   "group": "energy",
   "first": "2000-11-01",
-  "last": "2026-11-19",
-  "close": 2.4756,
-  "prev": 2.4819,
+  "last": "2026-11-20",
+  "close": 2.4813,
+  "prev": 2.4951,
   "contract": {
    "name": "RBOB Gasoline Jan 27",
    "month": 1,
@@ -241,9 +241,9 @@
   "ticker": "HO=F",
   "group": "energy",
   "first": "2000-09-01",
-  "last": "2026-11-19",
-  "close": 3.8761,
-  "prev": 3.9723,
+  "last": "2026-11-20",
+  "close": 3.8668,
+  "prev": 3.9514,
   "contract": {
    "name": "Heating Oil Dec 26",
    "month": 1,
@@ -256,7 +256,7 @@
   "group": "fx",
   "first": "2000-01-03",
   "last": "2026-11-20",
-  "close": 159.160995,
+  "close": 159.707001,
   "prev": 159.380997
  },
  "USDCAD": {
@@ -264,7 +264,7 @@
   "group": "fx",
   "first": "2003-09-17",
   "last": "2026-11-20",
-  "close": 1.43333,
+  "close": 1.43435,
   "prev": 1.43308
  },
  "EURUSD": {
@@ -272,7 +272,7 @@
   "group": "fx",
   "first": "2003-12-01",
   "last": "2026-11-20",
-  "close": 1.097815,
+  "close": 1.096972,
   "prev": 1.097201
  },
  "GBPUSD": {
@@ -280,7 +280,7 @@
   "group": "fx",
   "first": "2003-12-01",
   "last": "2026-11-20",
-  "close": 1.310066,
+  "close": 1.308644,
   "prev": 1.314665
  },
  "AUDUSD": {
@@ -288,7 +288,7 @@
   "group": "fx",
   "first": "2006-05-16",
   "last": "2026-11-20",
-  "close": 0.665912,
+  "close": 0.665619,
   "prev": 0.67128
  },
  "USDCHF": {
@@ -296,7 +296,7 @@
   "group": "fx",
   "first": "2003-09-17",
   "last": "2026-11-20",
-  "close": 0.84258,
+  "close": 0.8441,
   "prev": 0.84348
  },
  "NZDUSD": {
@@ -304,7 +304,7 @@
   "group": "fx",
   "first": "2003-12-01",
   "last": "2026-11-20",
-  "close": 0.549239,
+  "close": 0.548143,
   "prev": 0.548856
  },
  "EURJPY": {
@@ -312,7 +312,7 @@
   "group": "fx",
   "first": "2003-01-23",
   "last": "2026-11-20",
-  "close": 174.686005,
+  "close": 175.167999,
   "prev": 174.867004
  },
  "GBPJPY": {
@@ -320,7 +320,7 @@
   "group": "fx",
   "first": "2003-12-01",
   "last": "2026-11-20",
-  "close": 208.507996,
+  "close": 208.992996,
   "prev": 209.524994
  },
  "EURGBP": {
@@ -328,32 +328,32 @@
   "group": "fx",
   "first": "2000-01-03",
   "last": "2026-11-20",
-  "close": 0.83773,
+  "close": 0.83799,
   "prev": 0.83454
  },
  "USDCNY": {
   "ticker": "CNY=X",
   "group": "fx",
   "first": "2001-06-25",
-  "last": "2026-11-20",
-  "close": 6.6705,
-  "prev": 6.6676
+  "last": "2026-11-21",
+  "close": 6.6623,
+  "prev": 6.6665
  },
  "DXY": {
   "ticker": "DX-Y.NYB",
   "group": "fx",
   "first": "2000-01-03",
-  "last": "2026-11-19",
-  "close": 103.845001,
-  "prev": 103.860001
+  "last": "2026-11-20",
+  "close": 103.839996,
+  "prev": 103.900002
  },
  "EUR_FUT": {
   "ticker": "6E=F",
   "group": "fx",
   "first": "2000-09-12",
-  "last": "2026-11-19",
-  "close": 1.09835,
-  "prev": 1.0977,
+  "last": "2026-11-20",
+  "close": 1.09785,
+  "prev": 1.09845,
   "contract": {
    "name": "Euro FX Futures,Dec-2026",
    "month": 12,
@@ -365,9 +365,9 @@
   "ticker": "6J=F",
   "group": "fx",
   "first": "2000-09-13",
-  "last": "2026-11-19",
-  "close": 0.006293,
-  "prev": 0.006289,
+  "last": "2026-11-20",
+  "close": 0.006318,
+  "prev": 0.006272,
   "contract": {
    "name": "Japanese Yen Futures,Dec-2026",
    "month": 12,
@@ -379,9 +379,9 @@
   "ticker": "6B=F",
   "group": "fx",
   "first": "2000-10-05",
-  "last": "2026-11-19",
-  "close": 1.3097,
-  "prev": 1.314,
+  "last": "2026-11-20",
+  "close": 1.3088,
+  "prev": 1.3101,
   "contract": {
    "name": "British Pound Futures,Dec-2026",
    "month": 12,
@@ -393,9 +393,9 @@
   "ticker": "6C=F",
   "group": "fx",
   "first": "2000-05-23",
-  "last": "2026-11-19",
-  "close": 0.6983,
-  "prev": 0.69855,
+  "last": "2026-11-20",
+  "close": 0.69795,
+  "prev": 0.69835,
   "contract": {
    "name": "Canadian Dollar Futures,Dec-202",
    "month": 12,
@@ -407,9 +407,9 @@
   "ticker": "6A=F",
   "group": "fx",
   "first": "2000-11-08",
-  "last": "2026-11-19",
-  "close": 0.66505,
-  "prev": 0.6707,
+  "last": "2026-11-20",
+  "close": 0.66175,
+  "prev": 0.66595,
   "contract": {
    "name": "Australian Dollar Futures,Dec-2",
    "month": 12,
@@ -421,9 +421,9 @@
   "ticker": "6S=F",
   "group": "fx",
   "first": "2000-11-10",
-  "last": "2026-11-19",
-  "close": 1.1898,
-  "prev": 1.18855,
+  "last": "2026-11-20",
+  "close": 1.1934,
+  "prev": 1.1879,
   "contract": {
    "name": "Swiss Franc Futures,Dec-2026",
    "month": 12,
@@ -435,9 +435,9 @@
   "ticker": "6N=F",
   "group": "fx",
   "first": "2000-06-09",
-  "last": "2026-11-19",
-  "close": 0.54915,
-  "prev": 0.54935,
+  "last": "2026-11-20",
+  "close": 0.5477,
+  "prev": 0.5495,
   "contract": {
    "name": "New Zealand Dollar Futures,Dec-",
    "month": 12,
@@ -449,16 +449,16 @@
   "ticker": "BTC-USD",
   "group": "crypto",
   "first": "2014-09-17",
-  "last": "2026-11-20",
-  "close": 61968.769531,
-  "prev": 62987.265625
+  "last": "2026-11-21",
+  "close": 58231.328125,
+  "prev": 61901.820312
  },
  "ETH": {
   "ticker": "ETH-USD",
   "group": "crypto",
   "first": "2017-11-09",
-  "last": "2026-11-20",
-  "close": 1743.310059,
-  "prev": 1774.749146
+  "last": "2026-11-21",
+  "close": 1608.25,
+  "prev": 1755.189819
  }
 }
